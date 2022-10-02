@@ -13,4 +13,22 @@
     <string name="misc">Misc</string>
     <string name="web_page">Webpage</string>
     <string name="web_page_sub">https://www.sfu.ca/computing.html</string>
+    <string name="photo">Profile Photo:</string>
+    <string name="name">Name</string>
+    <string name="mail">Email</string>
+    <string name="phone">Phone</string>
+    <string name="gender">Gender</string>
+    <string name="class_title">Class</string>
+    <string name="major">Major</string>
+    <string name="name_input">Your Name</string>
+    <string name="mail_input">Your Email</string>
+    <string name="phone_input">Your Phone Number</string>
+    <string name="female_radio">Female</string>
+    <string name="male_radio">Male</string>
+    <string name="class_input">eg.2012</string>
+    <string name="major_input">Your Major</string>
+    <string name="change_button">Change</string>
+    <string name="save_button">Save</string>
+    <string name="cancel_button">Cancel</string>
+    <string  name="profile">profile</string>
 </resources>

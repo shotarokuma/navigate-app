@@ -99,6 +99,7 @@
             android:layout_marginHorizontal="10dp"
             />
         <LinearLayout
+            android:id="@+id/unit_preference"
             android:layout_height="70dp"
             android:layout_width="fill_parent"
             android:orientation="vertical"
@@ -127,6 +128,7 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
         <LinearLayout
+            android:id="@+id/comments"
             android:layout_height="70dp"
             android:layout_width="fill_parent"
             android:orientation="vertical"

@@ -30,5 +30,7 @@
     <string name="change_button">Change</string>
     <string name="save_button">Save</string>
     <string name="cancel_button">Cancel</string>
-    <string  name="profile">profile</string>
+    <string name="profile">profile</string>
+    <string name="unit_kilometers">Metric (Kilometers)</string>
+    <string name="unit_miles">Imperial (Miles)</string>
 </resources>

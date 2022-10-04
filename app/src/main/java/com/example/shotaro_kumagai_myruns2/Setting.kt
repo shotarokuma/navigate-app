@@ -15,9 +15,14 @@ class Setting : Fragment() {
     private lateinit var intent:Intent
     private lateinit var profile: LinearLayout
     private lateinit var privacy: LinearLayout
+    private  lateinit var unitPreference: LinearLayout
+    private  lateinit var  comments : LinearLayout
     private lateinit var privacyCheck: CheckBox
+    private lateinit var unitDialog: Dialog
+    private  lateinit var commentDialog: Dialog
     private lateinit var misc:LinearLayout
     private lateinit var uri: Uri
+    private  lateinit var bundle: Bundle
 
 
     override fun onCreateView(
@@ -44,6 +49,34 @@ class Setting : Fragment() {
             privacyCheck.isChecked = check
             savedInstanceState?.putBoolean(PRIVACY,check)
         }
+
+        unitDialog = Dialog()
+        bundle = Bundle()
+        bundle.putInt(Dialog.DIALOG_KEY, Dialog.UNIT_PREFERENCE)
+        unitDialog.arguments = Bundle()
+        unitPreference = setting.findViewById(R.id.unit_preference)
+        unitPreference.setOnClickListener{
+            unitPreference.isEnabled = false
+            unitPreference.postDelayed({
+                unitPreference.isEnabled = true
+            }, 500L)
+            unitDialog.show(childFragmentManager, "unit")
+        }
+
+        commentDialog = Dialog()
+        bundle = Bundle()
+        bundle.putInt(Dialog.DIALOG_KEY, Dialog.COMMENTS)
+        commentDialog.arguments = Bundle()
+        comments = setting.findViewById(R.id.comments)
+        println()
+        comments.setOnClickListener{
+            comments.isEnabled = false
+            comments.postDelayed({
+                comments.isEnabled = true
+            }, 500L)
+            commentDialog.show(childFragmentManager, "comments")
+        }
+
 
         misc = setting.findViewById(R.id.misc)
         misc.setOnClickListener{

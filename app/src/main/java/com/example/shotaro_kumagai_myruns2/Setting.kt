@@ -22,7 +22,6 @@ class Setting : Fragment() {
     private  lateinit var commentDialog: Dialog
     private lateinit var misc:LinearLayout
     private lateinit var uri: Uri
-    private  lateinit var bundle: Bundle
 
 
     override fun onCreateView(
@@ -50,10 +49,10 @@ class Setting : Fragment() {
             savedInstanceState?.putBoolean(PRIVACY,check)
         }
 
+        val unitBundle = Bundle()
         unitDialog = Dialog()
-        bundle = Bundle()
-        bundle.putInt(Dialog.DIALOG_KEY, Dialog.UNIT_PREFERENCE)
-        unitDialog.arguments = Bundle()
+        unitBundle.putInt(Dialog.DIALOG_KEY, Dialog.UNIT_PREFERENCE)
+        unitDialog.arguments = unitBundle
         unitPreference = setting.findViewById(R.id.unit_preference)
         unitPreference.setOnClickListener{
             unitPreference.isEnabled = false
@@ -63,12 +62,11 @@ class Setting : Fragment() {
             unitDialog.show(childFragmentManager, "unit")
         }
 
+        val commentBundle = Bundle()
         commentDialog = Dialog()
-        bundle = Bundle()
-        bundle.putInt(Dialog.DIALOG_KEY, Dialog.COMMENTS)
-        commentDialog.arguments = Bundle()
+        commentBundle.putInt(Dialog.DIALOG_KEY, Dialog.COMMENTS)
+        commentDialog.arguments = commentBundle
         comments = setting.findViewById(R.id.comments)
-        println()
         comments.setOnClickListener{
             comments.isEnabled = false
             comments.postDelayed({

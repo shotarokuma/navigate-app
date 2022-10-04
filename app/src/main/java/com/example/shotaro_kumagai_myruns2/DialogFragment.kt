@@ -10,19 +10,22 @@ import androidx.fragment.app.DialogFragment
 class Dialog : DialogFragment(), DialogInterface.OnClickListener{
     companion object{
         const val DIALOG_KEY = "key"
-        const val UNIT_PREFERENCE = 0
+        const val UNIT_PREFERENCE = 6
         const val COMMENTS = 1
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bundle = arguments
-        val key = bundle?.getInt(DIALOG_KEY)
-        return if (key == UNIT_PREFERENCE) {
-            createUnitPreference()
-        } else if(key == COMMENTS){
-            createComments()
-        }else{
-            createUnitPreference()
+        return when (bundle?.getInt(DIALOG_KEY)) {
+            UNIT_PREFERENCE -> {
+                createUnitPreference()
+            }
+            COMMENTS -> {
+                createComments()
+            }
+            else -> {
+                createUnitPreference()
+            }
         }
     }
 

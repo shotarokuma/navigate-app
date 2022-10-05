@@ -1,6 +1,8 @@
 package com.example.shotaro_kumagai_myruns2
 
+import android.app.Dialog
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -12,10 +14,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,7 +36,9 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tempImgFileName: String
     private lateinit var tempImgUri: Uri
     private lateinit var cameraResult: ActivityResultLauncher<Intent>
+    private lateinit var selectResult: ActivityResultLauncher<Intent>
     private lateinit var viewModel:MyViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -75,9 +76,25 @@ class ProfileActivity : AppCompatActivity() {
                 val bitmap = Util.getBitmap(this, tempImgUri)
                 viewModel.userImage.value = bitmap
             }
+            dismissDialog(0)
         }
+
+        selectResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val selectedUri :Uri? = result.data?.data
+                if(selectedUri != null){
+                    val bitmap = Util.getBitmap(this, selectedUri)
+                    viewModel.userImage.value = bitmap
+                }
+            }
+            dismissDialog(0)
+        }
+
+
         viewModel.userImage.observe(this, Observer { it ->
-            val matrix : Matrix = Matrix()
+            val matrix  = Matrix()
             matrix.postRotate(-90F)
             val scaledBitmap = Bitmap.createScaledBitmap(it, 100, 100, true)
             val rotatedBitmap = Bitmap.createBitmap(
@@ -104,9 +121,9 @@ class ProfileActivity : AppCompatActivity() {
         }
         majorView.setText(sharedPref.getString(MAJOR, null))
         val genderVal: Int = sharedPref.getInt(GENDER,0)
-        if(genderVal === 1){
+        if(genderVal == 1){
             maleView.isChecked = true
-        }else if(genderVal === 2){
+        }else if(genderVal == 2){
             femaleView.isChecked = true;
         }
 
@@ -122,6 +139,20 @@ class ProfileActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(IMG_URI,tempImgUri.toString())
+    }
+
+    override fun onCreateDialog(id: Int): Dialog {
+        val builder = AlertDialog.Builder(this)
+        val view : View = this.layoutInflater.inflate(R.layout.pick_profile_dialog, null)
+        builder.setView(view)
+        builder.setTitle("Pick Profile Picture")
+        view.findViewById<LinearLayout>(R.id.open_camera).setOnClickListener{
+            onTakePhoto()
+        }
+        view.findViewById<LinearLayout>(R.id.select_photo).setOnClickListener{
+            onSelectPhoto()
+        }
+        return builder.create()
     }
 
 
@@ -160,10 +191,22 @@ class ProfileActivity : AppCompatActivity() {
         ).show()
     }
 
-    fun onTakePhoto(view:View){
+    fun onPickPhoto(view:View){
+        showDialog(0)
+    }
+
+    private fun onTakePhoto(){
         val intent:Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, tempImgUri)
         cameraResult.launch(intent)
+    }
+
+    private fun onSelectPhoto(){
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            type = "image/*"
+        }
+        selectResult.launch(intent)
+        finish()
     }
 
     fun onCancel(view: View){

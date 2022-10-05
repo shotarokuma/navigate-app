@@ -33,4 +33,6 @@
     <string name="profile">profile</string>
     <string name="unit_kilometers">Metric (Kilometers)</string>
     <string name="unit_miles">Imperial (Miles)</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="select_from_grallery">Select from Gallery</string>
 </resources>

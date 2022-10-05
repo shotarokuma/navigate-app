@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 class Dialog : DialogFragment(), DialogInterface.OnClickListener{
     companion object{
         const val DIALOG_KEY = "key"
-        const val UNIT_PREFERENCE = 6
+        const val UNIT_PREFERENCE = 0
         const val COMMENTS = 1
     }
 

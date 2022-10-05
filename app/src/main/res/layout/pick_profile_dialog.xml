@@ -33,7 +33,7 @@
         >
         <TextView
             android:textSize="15sp"
-            android:text="@string/select_from_grallery"
+            android:text="@string/select_from_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

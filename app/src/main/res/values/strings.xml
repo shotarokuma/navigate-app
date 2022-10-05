@@ -34,5 +34,27 @@
     <string name="unit_kilometers">Metric (Kilometers)</string>
     <string name="unit_miles">Imperial (Miles)</string>
     <string name="open_camera">Open Camera</string>
-    <string name="select_from_grallery">Select from Gallery</string>
+    <string name="select_from_gallery">Select from Galley</string>
+    <string name="start">Start</string>
+    <string name="input_type">Input Type</string>
+    <string name="activity_type">Activity Type</string>
+    <string-array name="inputs">
+        <item>Manual Entry</item>
+        <item>GPS</item>
+        <item>Automatic</item>
+    </string-array>
+    <string-array name="activities">
+        <item>Standing</item>
+        <item>Cycling</item>
+        <item>Hiking</item>
+        <item>Downhill Skiing</item>
+        <item>Cross-Country Skiing</item>
+        <item>Snowboarding</item>
+        <item>Skating</item>
+        <item>Swimming</item>
+        <item>Mountain Hiking</item>
+        <item>Wheelchair</item>
+        <item>Elliptical</item>
+        <item>Other</item>
+    </string-array>
 </resources>

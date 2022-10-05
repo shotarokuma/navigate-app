@@ -13,14 +13,12 @@ import android.widget.LinearLayout
 class Setting : Fragment() {
     private lateinit var  setting: View
     private lateinit var intent:Intent
-    private lateinit var profile: LinearLayout
     private lateinit var privacy: LinearLayout
     private  lateinit var unitPreference: LinearLayout
     private  lateinit var  comments : LinearLayout
     private lateinit var privacyCheck: CheckBox
     private lateinit var unitDialog: Dialog
     private  lateinit var commentDialog: Dialog
-    private lateinit var misc:LinearLayout
     private lateinit var uri: Uri
 
 
@@ -30,8 +28,7 @@ class Setting : Fragment() {
     ): View? {
         setting = inflater.inflate(R.layout.fragment_setting, container, false)
 
-        profile = setting.findViewById(R.id.profile)
-        profile.setOnClickListener{
+        setting.findViewById<LinearLayout>(R.id.profile).setOnClickListener{
             intent = Intent(context,ProfileActivity::class.java)
             startActivity(intent)
         }
@@ -76,8 +73,7 @@ class Setting : Fragment() {
         }
 
 
-        misc = setting.findViewById(R.id.misc)
-        misc.setOnClickListener{
+        setting.findViewById<LinearLayout>(R.id.misc).setOnClickListener{
             uri = Uri.parse("https://www.sfu.ca/computing.html")
             intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)

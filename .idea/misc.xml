@@ -6,12 +6,13 @@
         <entry key="../../../../../layout/custom_preview.xml" value="0.13189448441247004" />
         <entry key="app/src/main/res/drawable/border.xml" value="0.115" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37395833333333334" />
+        <entry key="app/src/main/res/layout/activity_manual.xml" value="0.37395833333333334" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.1818642350557244" />
         <entry key="app/src/main/res/layout/border.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/fragment_dialog.xml" value="0.3845108695652174" />
         <entry key="app/src/main/res/layout/fragment_history.xml" value="0.3845108695652174" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.2800155639648438" />
-        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_start.xml" value="0.41951293945312507" />
         <entry key="app/src/main/res/layout/input_dialog.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/pick_profile_dialog.xml" value="0.5730552526472067" />
         <entry key="app/src/main/res/layout/radio_dialog.xml" value="0.1887031408308004" />

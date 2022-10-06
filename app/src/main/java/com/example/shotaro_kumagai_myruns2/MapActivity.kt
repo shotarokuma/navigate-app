@@ -16,7 +16,8 @@ class MapActivity : AppCompatActivity() {
         }
     }
 
-    fun onSave(view:View){
+
+    fun onSave (view:View){
         finish()
     }
 

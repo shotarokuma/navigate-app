@@ -206,7 +206,6 @@ class ProfileActivity : AppCompatActivity() {
             type = "image/*"
         }
         selectResult.launch(intent)
-        finish()
     }
 
     fun onCancel(view: View){

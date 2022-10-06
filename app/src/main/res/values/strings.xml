@@ -38,6 +38,7 @@
     <string name="start">Start</string>
     <string name="input_type">Input Type</string>
     <string name="activity_type">Activity Type</string>
+    <string name="note">How did it go? Notes here.</string>
     <string-array name="inputs">
         <item>Manual Entry</item>
         <item>GPS</item>
@@ -56,5 +57,14 @@
         <item>Wheelchair</item>
         <item>Elliptical</item>
         <item>Other</item>
+    </string-array>
+    <string-array name="menu">
+        <item>Date</item>
+        <item>Time</item>
+        <item>Duration</item>
+        <item>Distance</item>
+        <item>Calories</item>
+        <item>Heart Rate</item>
+        <item>Comment</item>
     </string-array>
 </resources>

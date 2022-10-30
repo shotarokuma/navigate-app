@@ -19,16 +19,16 @@
         android:theme="@style/Theme.Shotaro_Kumagai_MyRuns3"
         tools:targetApi="31" >
         <activity
-            android:name=".MapActivity"
+            android:name=".start.MapActivity"
             android:exported="false" />
         <activity
-            android:name=".ManualActivity"
+            android:name=".start.ManualActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

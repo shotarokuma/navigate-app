@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3
+package com.example.shotaro_kumagai_myruns3.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

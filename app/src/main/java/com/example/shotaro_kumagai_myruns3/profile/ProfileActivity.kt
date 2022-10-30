@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3
+package com.example.shotaro_kumagai_myruns3.profile
 
 import android.app.Dialog
 import android.app.Activity
@@ -21,6 +21,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns3.Util
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -37,7 +39,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var tempImgUri: Uri
     private lateinit var cameraResult: ActivityResultLauncher<Intent>
     private lateinit var selectResult: ActivityResultLauncher<Intent>
-    private lateinit var viewModel:MyViewModel
+    private lateinit var viewModel: MyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

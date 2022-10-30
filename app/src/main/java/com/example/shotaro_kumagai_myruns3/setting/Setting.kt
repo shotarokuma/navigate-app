@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3
+package com.example.shotaro_kumagai_myruns3.setting
 
 import android.content.Intent
 import android.net.Uri
@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import com.example.shotaro_kumagai_myruns3.Dialog
+import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns3.profile.ProfileActivity
 
 class Setting : Fragment() {
     private lateinit var  setting: View
@@ -29,7 +32,7 @@ class Setting : Fragment() {
         setting = inflater.inflate(R.layout.fragment_setting, container, false)
 
         setting.findViewById<LinearLayout>(R.id.profile).setOnClickListener{
-            intent = Intent(context,ProfileActivity::class.java)
+            intent = Intent(context, ProfileActivity::class.java)
             startActivity(intent)
         }
 

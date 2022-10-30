@@ -1,10 +1,11 @@
-package com.example.shotaro_kumagai_myruns3
+package com.example.shotaro_kumagai_myruns3.history
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.shotaro_kumagai_myruns3.R
 
 class History : Fragment() {
     override fun onCreateView(

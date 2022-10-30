@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3
+package com.example.shotaro_kumagai_myruns3.start
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.shotaro_kumagai_myruns3.Dialog
+import com.example.shotaro_kumagai_myruns3.R
 import java.util.*
 
 

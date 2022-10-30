@@ -162,7 +162,9 @@ class ProfileActivity : AppCompatActivity() {
         sharedPref.edit().putString(MAIL, mailView.text.toString()).apply()
         sharedPref.edit().putString(PHONE, phoneView.text.toString()).apply()
         val classVal:String = classView.text.toString()
-        sharedPref.edit().putInt(CLASS, classVal.toInt()).apply()
+        if(classVal != ""){
+            sharedPref.edit().putInt(CLASS, classVal.toInt()).apply()
+        }
         sharedPref.edit().putString(MAJOR, majorView.text.toString()).apply()
 
         if(!maleView.isChecked && !femaleView.isChecked){

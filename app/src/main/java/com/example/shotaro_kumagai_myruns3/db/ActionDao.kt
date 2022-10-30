@@ -15,5 +15,5 @@ interface ActionDao {
     fun getAllActions(): Flow<List<Action>>
 
     @Query("DELETE FROM action_table WHERE id = :key")
-    suspend fun deleteAction()
+    suspend fun deleteAction(key:Long)
 }

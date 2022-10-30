@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns2
+package com.example.shotaro_kumagai_myruns3
 
 import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData

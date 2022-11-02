@@ -28,17 +28,6 @@ class Start : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         start =  inflater.inflate(R.layout.fragment_start, container, false)
-
-        start.findViewById<Button>(R.id.start_button)?.setOnClickListener{
-            intent = if (inputSpinner.selectedItem.toString() == "Manual Entry"){
-                Intent(context, ManualActivity::class.java)
-            }else{
-                Intent(context, MapActivity::class.java)
-            }
-            startActivity(intent)
-        }
-
-
         inputs = resources.getStringArray(R.array.inputs)
         inputSpinner = start.findViewById(R.id.inputs)
         inputAdapter = ArrayAdapter(start.context,android.R.layout.simple_list_item_1,inputs)
@@ -60,6 +49,16 @@ class Start : Fragment() {
             activitiesSpinner.setSelection(activitiesAdapter.getPosition(selectedActivity))
         }
 
+        start.findViewById<Button>(R.id.start_button)?.setOnClickListener{
+            intent = if (inputSpinner.selectedItem.toString() == "Manual Entry"){
+                Intent(context, ManualActivity::class.java)
+            }else{
+                Intent(context, ManualActivity::class.java)
+            }
+            intent.putExtra(SELECTED_ACTIVITIES, activities.indexOf(activitiesSpinner.selectedItem.toString()))
+            startActivity(intent)
+        }
+
         return start
     }
 
@@ -72,5 +71,6 @@ class Start : Fragment() {
     companion object {
         const val INPUT_TYPE = "input_type"
         const val ACTIVITIES_TYPE = "activities_type"
+        const val SELECTED_ACTIVITIES = "selected_activities"
     }
 }

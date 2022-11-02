@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.shotaro_kumagai_myruns3.Dialog
 import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns3.db.*
 import java.util.*
 
 
@@ -19,6 +20,12 @@ class ManualActivity : AppCompatActivity() {
     private lateinit var menuArray: Array<String>
     private lateinit var menuAdapter: ArrayAdapter<String>
     private lateinit var vm: DialogViewModel
+    private lateinit var viewModelFactory: ActionViewModelFactory
+    private lateinit var database: ActionDatabase
+    private lateinit var databaseDao: ActionDao
+    private lateinit var repository: ActionRepository
+    private lateinit var actionViewModel: ActionViewModel
+    private lateinit var action: Action
     private val calender : Calendar = Calendar.getInstance()
     private val year: Int = calender.get(Calendar.YEAR)
     private  val month: Int = calender.get(Calendar.MONTH)
@@ -36,6 +43,11 @@ class ManualActivity : AppCompatActivity() {
         setContentView(R.layout.activity_manual)
 
         vm = ViewModelProvider(this)[DialogViewModel::class.java]
+        database = ActionDatabase.getInstance(this)
+        databaseDao = database.actionDao
+        repository = ActionRepository(databaseDao)
+        viewModelFactory = ActionViewModelFactory(repository)
+        actionViewModel = ViewModelProvider(this, viewModelFactory)[ActionViewModel::class.java]
 
         listMenu = findViewById(R.id.manual_menu)
         menuArray = resources.getStringArray(R.array.menu)
@@ -58,7 +70,6 @@ class ManualActivity : AppCompatActivity() {
     private fun crateDateDialog(){
         val date = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{_,year,month,dayOfMonth->
             vm.dateTime.value?.set(year,month, dayOfMonth)
-            println(vm.dateTime.value)
         }, year,month,day
         )
         date.show()
@@ -80,6 +91,17 @@ class ManualActivity : AppCompatActivity() {
     }
 
     fun onSave(view: View){
+        action = Action(
+            inputType = 0,
+            activityType = intent.getIntExtra(Start.SELECTED_ACTIVITIES, 0),
+            dateTime = vm.dateTime.value!!,
+            duration = vm.duration.value!!,
+            distance = vm.distance.value!!,
+            calorie = vm.calorie.value!!,
+            heartRate = vm.heartRate.value!!,
+            comment = vm.comment.value!!
+        )
+        actionViewModel.insert(action)
         Toast.makeText(this, "Entry Saved", Toast.LENGTH_SHORT).show()
         finish()
     }

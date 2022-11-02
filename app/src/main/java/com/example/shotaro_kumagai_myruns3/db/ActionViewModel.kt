@@ -18,7 +18,7 @@ class ActionViewModel(private val repository: ActionRepository):ViewModel() {
     }
 }
 
-class CommentViewModelFactory (private val repository: ActionRepository) : ViewModelProvider.Factory {
+class ActionViewModelFactory (private val repository: ActionRepository) : ViewModelProvider.Factory {
     override fun<T: ViewModel> create(modelClass: Class<T>) : T{
         if(modelClass.isAssignableFrom(ActionViewModel::class.java))
             return ActionViewModel(repository) as T

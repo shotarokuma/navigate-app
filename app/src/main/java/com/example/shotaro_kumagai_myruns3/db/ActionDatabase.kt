@@ -55,9 +55,11 @@ class LangConverter{
         val locationList: ArrayList<LatLng> = arrayListOf()
         val stringList:List<String> = string.split('-')
         stringList.forEach(){
-            val s = it.replace("(", "").replace(")", "")
-            val list = s.split(",")
-           locationList.add(LatLng(list.first().toDouble(), list.last().toDouble()))
+            val s: String = it.replace("(", "").replace(")", "")
+            val list: List<String> = s.split(",")
+            if(list.first() != "" && list.last() != ""){
+                locationList.add(LatLng(list.first().toDouble(), list.last().toDouble()))
+            }
         }
         return locationList
     }

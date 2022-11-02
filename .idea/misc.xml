@@ -12,7 +12,7 @@
         <entry key="app/src/main/res/layout/border.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/date_dialog.xml" value="0.20677083333333332" />
         <entry key="app/src/main/res/layout/fragment_dialog.xml" value="0.3845108695652174" />
-        <entry key="app/src/main/res/layout/fragment_history.xml" value="0.3845108695652174" />
+        <entry key="app/src/main/res/layout/fragment_history.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_setting.xml" value="0.2800155639648438" />
         <entry key="app/src/main/res/layout/fragment_start.xml" value="0.41951293945312507" />
         <entry key="app/src/main/res/layout/history_list.xml" value="0.18819655521783182" />

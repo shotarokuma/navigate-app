@@ -7,6 +7,7 @@
     tools:context=".Dialog"
     android:orientation="vertical">
    <EditText
+       android:id="@+id/input"
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:layout_margin="10dp"

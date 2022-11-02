@@ -1,11 +1,13 @@
 package com.example.shotaro_kumagai_myruns3.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+import com.google.android.gms.maps.model.LatLng
+import java.util.*
+import kotlin.collections.ArrayList
 
 @Database(entities = [Action::class], version = 1)
+@TypeConverters(CalenderConverter::class, LangConverter::class)
 abstract class ActionDatabase: RoomDatabase() {
     abstract val actionDao: ActionDao
 
@@ -13,16 +15,50 @@ abstract class ActionDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: ActionDatabase? = null
 
-        fun getInstance(context: Context): ActionDatabase{
-            synchronized(this){}
-            var instance = INSTANCE
-            if (instance == null){
-                instance = Room.databaseBuilder(context.applicationContext,
-                    ActionDatabase::class.java,
-                    "action__table").build()
-                INSTANCE = instance
+        fun getInstance(context: Context) : ActionDatabase{
+            synchronized(this){
+                var instance = INSTANCE
+                if(instance == null){
+                    instance = Room.databaseBuilder(context.applicationContext,
+                        ActionDatabase::class.java, "action_table").build()
+                    INSTANCE = instance
+                }
+                return instance
             }
-            return instance
         }
+    }
+}
+
+class CalenderConverter{
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Calendar? = value?.let { value ->
+        GregorianCalendar().also { calendar ->
+            calendar.timeInMillis = value
+        }
+    }
+
+    @TypeConverter
+    fun toTimestamp(timestamp: Calendar?): Long? = timestamp?.timeInMillis
+}
+
+class LangConverter{
+    @TypeConverter
+    fun latLngToString(locationList: ArrayList<LatLng>) : String {
+        val stringList: List<String> = locationList.map {
+            "(${it.latitude},${it.longitude}"
+        }
+        return stringList.joinToString("-")
+    }
+
+    @TypeConverter
+    fun stringToLatLng(string: String) : ArrayList<LatLng>{
+        val locationList: ArrayList<LatLng> = arrayListOf()
+        val stringList:List<String> = string.split('-')
+        stringList.forEach(){
+            val s = it.replace("(", "").replace(")", "")
+            val list = s.split(",")
+           locationList.add(LatLng(list.first().toDouble(), list.last().toDouble()))
+        }
+        return locationList
     }
 }

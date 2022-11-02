@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.shotaro_kumagai_myruns3.Dialog
 import com.example.shotaro_kumagai_myruns3.R
 import java.util.*
@@ -17,6 +18,7 @@ class ManualActivity : AppCompatActivity() {
     private lateinit var listMenu: ListView
     private lateinit var menuArray: Array<String>
     private lateinit var menuAdapter: ArrayAdapter<String>
+    private lateinit var vm: DialogViewModel
     private val calender : Calendar = Calendar.getInstance()
     private val year: Int = calender.get(Calendar.YEAR)
     private  val month: Int = calender.get(Calendar.MONTH)
@@ -32,6 +34,8 @@ class ManualActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manual)
+
+        vm = ViewModelProvider(this)[DialogViewModel::class.java]
 
         listMenu = findViewById(R.id.manual_menu)
         menuArray = resources.getStringArray(R.array.menu)
@@ -52,13 +56,19 @@ class ManualActivity : AppCompatActivity() {
     }
 
     private fun crateDateDialog(){
-        val date = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{_,_,_,_->}, year,month,day
+        val date = DatePickerDialog(this,DatePickerDialog.OnDateSetListener{_,year,month,dayOfMonth->
+            vm.dateTime.value?.set(year,month, dayOfMonth)
+            println(vm.dateTime.value)
+        }, year,month,day
         )
         date.show()
     }
 
     private fun crateTimeDialog(){
-        val time = TimePickerDialog(this,TimePickerDialog.OnTimeSetListener{_,_,_->},hour,min,false)
+        val time = TimePickerDialog(this,TimePickerDialog.OnTimeSetListener{_,hour,min->
+            vm.dateTime.value?.set(Calendar.HOUR, hour)
+            vm.dateTime.value?.set(Calendar.MINUTE, min)
+        },hour,min,false)
         time.show()
     }
 
@@ -67,6 +77,11 @@ class ManualActivity : AppCompatActivity() {
         bundle.putInt(Dialog.DIALOG_KEY, type)
         dialog.arguments = bundle
         dialog.show(supportFragmentManager, tag)
+    }
+
+    fun onSave(view: View){
+        Toast.makeText(this, "Entry Saved", Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     fun onCancel(view:View){

@@ -3,8 +3,8 @@ package com.example.shotaro_kumagai_myruns3.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.android.libraries.maps.model.LatLng
-import java.util.*
+import com.google.android.gms.maps.model.LatLng
+import java.util.Calendar
 
 @Entity(tableName = "action_table")
 data class Action (

@@ -4,8 +4,13 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.shotaro_kumagai_myruns3.start.DialogViewModel
 
 class Dialog : DialogFragment(), DialogInterface.OnClickListener{
     companion object{
@@ -20,6 +25,7 @@ class Dialog : DialogFragment(), DialogInterface.OnClickListener{
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         val bundle = arguments
         return when (bundle?.getInt(DIALOG_KEY)) {
             UNIT_PREFERENCE -> {
@@ -67,62 +73,92 @@ class Dialog : DialogFragment(), DialogInterface.OnClickListener{
     }
 
     private fun createDuration():Dialog{
+        val vm: DialogViewModel = ViewModelProvider(requireActivity())[DialogViewModel::class.java]
         val builder = AlertDialog.Builder(requireActivity())
         val view: View = requireActivity().layoutInflater.inflate(R.layout.input_dialog, null)
         builder.setView(view)
+        val input: EditText = view.findViewById(R.id.input)
+        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         builder.setTitle("Duration")
         builder.setNegativeButton("cancel", this)
-        builder.setPositiveButton("OK", this)
+        builder.setPositiveButton("OK") { _, _ ->
+            if(input.text.toString() != ""){
+                vm.duration.value =  input.text.toString().toDouble()
+            }
+        }
         return  builder.create()
     }
 
 
     private fun createDistance():Dialog{
+        val vm: DialogViewModel = ViewModelProvider(requireActivity())[DialogViewModel::class.java]
         val builder = AlertDialog.Builder(requireActivity())
         val view: View = requireActivity().layoutInflater.inflate(R.layout.input_dialog, null)
         builder.setView(view)
+        val input: EditText = view.findViewById(R.id.input)
+        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         builder.setTitle("Distance")
         builder.setNegativeButton("cancel", this)
-        builder.setPositiveButton("OK", this)
+        builder.setPositiveButton("OK") { _, _ ->
+            if(input.text.toString() != ""){
+                vm.distance.value = input.text.toString().toDouble()
+            }
+        }
         return  builder.create()
     }
 
 
     private fun createCalories():Dialog{
+        val vm: DialogViewModel = ViewModelProvider(requireActivity())[DialogViewModel::class.java]
         val builder = AlertDialog.Builder(requireActivity())
         val view: View = requireActivity().layoutInflater.inflate(R.layout.input_dialog, null)
         builder.setView(view)
+        val input: EditText = view.findViewById(R.id.input)
+        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         builder.setTitle("Calories")
         builder.setNegativeButton("cancel", this)
         builder.setPositiveButton("OK", this)
+        builder.setPositiveButton("OK") { _, _ ->
+            if(input.text.toString() != ""){
+                vm.calorie.value = input.text.toString().toDouble()
+            }
+        }
         return  builder.create()
     }
 
 
     private fun crateHeartRate():Dialog{
+        val vm: DialogViewModel = ViewModelProvider(requireActivity())[DialogViewModel::class.java]
         val builder = AlertDialog.Builder(requireActivity())
         val view: View = requireActivity().layoutInflater.inflate(R.layout.input_dialog, null)
         builder.setView(view)
+        val input: EditText = view.findViewById(R.id.input)
+        input.inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
         builder.setTitle("Heart Rate")
         builder.setNegativeButton("cancel", this)
-        builder.setPositiveButton("OK", this)
+        builder.setPositiveButton("OK") { _, _ ->
+            if(input.text.toString() != ""){
+                vm.heartRate.value = input.text.toString().toDouble()
+            }
+        }
         return  builder.create()
     }
 
 
     private fun crateNote():Dialog{
+        val vm: DialogViewModel = ViewModelProvider(requireActivity())[DialogViewModel::class.java]
         val builder = AlertDialog.Builder(requireActivity())
         val view: View = requireActivity().layoutInflater.inflate(R.layout.note_dialog, null)
         builder.setView(view)
+        val input: TextView = view.findViewById(R.id.input)
         builder.setTitle("Comments")
         builder.setNegativeButton("cancel", this)
         builder.setPositiveButton("OK", this)
+        builder.setPositiveButton("OK") { _, _ ->
+            vm.comment.value = input.text.toString()
+        }
         return  builder.create()
     }
-
-
-
-
 
     override fun onClick(dialog: DialogInterface, item: Int) {}
 }

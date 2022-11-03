@@ -8,6 +8,7 @@ import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns3.Unit
 import com.example.shotaro_kumagai_myruns3.db.*
 import java.text.SimpleDateFormat
 
@@ -37,10 +38,15 @@ class EachActionActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.activity_type).setText(resources.getStringArray(R.array.activities)[target?.activityType?.toInt()!!])
             val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
             findViewById<EditText>(R.id.date_and_time).setText(sdf.format(target?.dateTime?.time))
-            findViewById<EditText>(R.id.duration).setText(target?.duration.toString())
-            findViewById<EditText>(R.id.distance).setText(target?.distance.toString())
-            findViewById<EditText>(R.id.calories).setText(target?.calorie.toString())
-            findViewById<EditText>(R.id.heart_rate).setText(target?.heartRate.toString())
+            findViewById<EditText>(R.id.duration).setText(target?.duration!!.toInt().toString() + "secs")
+
+            val unit: Unit = Unit.getInstance()
+            val fixUnit: Double = if (unit.isMile) 1.0 else 1.60934
+            val strUnit: String = if (unit.isMile) "Miles" else "Kilometer"
+
+            findViewById<EditText>(R.id.distance).setText((target!!.distance * fixUnit).toString() + strUnit)
+            findViewById<EditText>(R.id.calories).setText(target?.calorie!!.toInt().toString() + "cals")
+            findViewById<EditText>(R.id.heart_rate).setText(target?.heartRate!!.toInt().toString() + "bpm")
         })
     }
 

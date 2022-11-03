@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.View
 import android.widget.EditText
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -58,6 +60,12 @@ class Dialog : DialogFragment(), DialogInterface.OnClickListener{
         builder.setView(view)
         builder.setTitle("Unit Preference")
         builder.setNegativeButton("cancel", this)
+        val unit: Unit = Unit.getInstance()
+        view.findViewById<RadioButton>(R.id.miles).isChecked = unit.isMile
+        view.findViewById<RadioButton>(R.id.meter).isChecked = !unit.isMile
+        view.findViewById<RadioGroup>(R.id.unit_radio).setOnCheckedChangeListener{_,_ ->
+            unit.isMile = !unit.isMile
+        }
         return builder.create()
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns3.Unit
 import com.example.shotaro_kumagai_myruns3.db.Action
 import java.text.SimpleDateFormat
 
@@ -46,10 +47,14 @@ class HistoryAdapter (
         val timeData: TextView = target!!.findViewById(R.id.time_data)
 
         val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
+        val unit: Unit = Unit.getInstance()
+        val fixUnit: Double = if (unit.isMile) 1.0 else 1.60934
+        val strUnit: String = if (unit.isMile) "Miles" else "Kilometer"
+
         actionData.text = "${context.resources.getStringArray(R.array.inputs)[actionList[position].inputType]}" +
                 ":${context.resources.getStringArray(R.array.activities)[actionList[position].activityType]}" +
                 "${sdf.format(actionList[position].dateTime.time)}"
-        timeData.text = "${actionList[position].distance}, 0sec"
+        timeData.text = "${actionList[position].distance * fixUnit} ${strUnit}, 0sec"
 
         target.setOnClickListener{
             intent = Intent(context, EachActionActivity::class.java)

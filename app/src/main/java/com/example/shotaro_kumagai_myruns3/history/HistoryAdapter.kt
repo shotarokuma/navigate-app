@@ -53,7 +53,7 @@ class HistoryAdapter (
 
         target.setOnClickListener{
             intent = Intent(context, EachActionActivity::class.java)
-            intent.putExtra(EACH_ACTION, actionList[position].id)
+            intent.putExtra(EACH_ACTION, position)
             context.startActivity(intent)
         }
         return target

@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.shotaro_kumagai_myruns3.R
 import com.example.shotaro_kumagai_myruns3.db.*
+import java.text.SimpleDateFormat
 
 class EachActionActivity : AppCompatActivity() {
-    private var key = -1
+    private var ind = -1
+    private var target: Action? = null
     private lateinit var viewModelFactory: ActionViewModelFactory
     private lateinit var database: ActionDatabase
     private lateinit var databaseDao: ActionDao
@@ -26,8 +30,18 @@ class EachActionActivity : AppCompatActivity() {
         repository = ActionRepository(databaseDao)
         viewModelFactory = ActionViewModelFactory(repository)
         actionViewModel = ViewModelProvider(this, viewModelFactory)[ActionViewModel::class.java]
-
-        key = intent.getIntExtra(HistoryAdapter.EACH_ACTION, -1)
+        ind = intent.getIntExtra(HistoryAdapter.EACH_ACTION, -1)
+        actionViewModel.allActionsLiveData.observe(this, Observer{ _ ->
+            target = actionViewModel.eachAction(ind)
+            findViewById<EditText>(R.id.input_type).setText(resources.getStringArray(R.array.inputs)[target?.inputType?.toInt()!!])
+            findViewById<EditText>(R.id.activity_type).setText(resources.getStringArray(R.array.activities)[target?.activityType?.toInt()!!])
+            val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
+            findViewById<EditText>(R.id.date_and_time).setText(sdf.format(target?.dateTime?.time))
+            findViewById<EditText>(R.id.duration).setText(target?.duration.toString())
+            findViewById<EditText>(R.id.distance).setText(target?.distance.toString())
+            findViewById<EditText>(R.id.calories).setText(target?.calorie.toString())
+            findViewById<EditText>(R.id.heart_rate).setText(target?.heartRate.toString())
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -36,10 +50,13 @@ class EachActionActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.delete_button) {
-            actionViewModel.deleteSelect(key)
-            return  true
+        if (item.itemId != R.id.delete_button) {
+            return  false
         }
-            return false
+        val id: Long = target?.id ?: return false
+        ind -= 1
+        actionViewModel.deleteSelect(id)
+        finish()
+        return true
     }
 }

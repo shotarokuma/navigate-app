@@ -5,17 +5,18 @@ import androidx.lifecycle.*
 class ActionViewModel(private val repository: ActionRepository):ViewModel() {
     val allActionsLiveData: LiveData<List<Action>> = repository.allActions.asLiveData()
 
+    fun eachAction(index: Int): Action? {
+        val actionList = allActionsLiveData.value
+        return actionList?.get(index)
+    }
+
     fun insert(action: Action){
         repository.insert(action)
     }
 
-    fun deleteSelect(index:Int){
-        val actionList = allActionsLiveData.value
-        if (actionList != null && actionList.isNotEmpty()){
-            val id = actionList[index].id
+    fun deleteSelect(id:Long){
             repository.delete(id)
         }
-    }
 }
 
 class ActionViewModelFactory (private val repository: ActionRepository) : ViewModelProvider.Factory {

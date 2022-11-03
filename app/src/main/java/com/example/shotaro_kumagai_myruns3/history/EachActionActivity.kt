@@ -33,22 +33,24 @@ class EachActionActivity : AppCompatActivity() {
         actionViewModel = ViewModelProvider(this, viewModelFactory)[ActionViewModel::class.java]
         ind = intent.getIntExtra(HistoryAdapter.EACH_ACTION, -1)
         actionViewModel.allActionsLiveData.observe(this, Observer{ _ ->
-            target = actionViewModel.eachAction(ind)
-            findViewById<EditText>(R.id.input_type).setText(resources.getStringArray(R.array.inputs)[target?.inputType?.toInt()!!])
-            findViewById<EditText>(R.id.activity_type).setText(resources.getStringArray(R.array.activities)[target?.activityType?.toInt()!!])
-            val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
-            findViewById<EditText>(R.id.date_and_time).setText(sdf.format(target?.dateTime?.time))
-            val min: Int = target?.duration!!.toInt()
-            val sec: Double = (target!!.duration - target!!.duration.toInt().toDouble()) * 60
-            findViewById<EditText>(R.id.duration).setText(min.toString() + "min" + sec.toInt().toString() + "sec")
+            if(ind > - 1){
+                target = actionViewModel.eachAction(ind)
+                findViewById<EditText>(R.id.input_type).setText(resources.getStringArray(R.array.inputs)[target?.inputType?.toInt()!!])
+                findViewById<EditText>(R.id.activity_type).setText(resources.getStringArray(R.array.activities)[target?.activityType?.toInt()!!])
+                val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
+                findViewById<EditText>(R.id.date_and_time).setText(sdf.format(target?.dateTime?.time))
+                val min: Int = target?.duration!!.toInt()
+                val sec: Double = (target!!.duration - target!!.duration.toInt().toDouble()) * 60
+                findViewById<EditText>(R.id.duration).setText(min.toString() + "min" + sec.toInt().toString() + "sec")
 
-            val unit: Unit = Unit.getInstance()
-            val fixUnit: Double = if (unit.isMile) 1.0 else 1.60934
-            val strUnit: String = if (unit.isMile) "Miles" else "Kilometer"
+                val unit: Unit = Unit.getInstance()
+                val fixUnit: Double = if (unit.isMile) 1.0 else 1.60934
+                val strUnit: String = if (unit.isMile) "Miles" else "Kilometer"
 
-            findViewById<EditText>(R.id.distance).setText((target!!.distance * fixUnit).toString() + strUnit)
-            findViewById<EditText>(R.id.calories).setText(target?.calorie!!.toInt().toString() + "cals")
-            findViewById<EditText>(R.id.heart_rate).setText(target?.heartRate!!.toInt().toString() + "bpm")
+                findViewById<EditText>(R.id.distance).setText((target!!.distance * fixUnit).toString() + strUnit)
+                findViewById<EditText>(R.id.calories).setText(target?.calorie!!.toInt().toString() + "cals")
+                findViewById<EditText>(R.id.heart_rate).setText(target?.heartRate!!.toInt().toString() + "bpm")
+            }
         })
     }
 

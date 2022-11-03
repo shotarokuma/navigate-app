@@ -45,6 +45,14 @@ class History : Fragment() {
             historyAdapter.notifyDataSetChanged()
         })
 
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        return history
+    }
+
+    override fun onResume() {
+        super.onResume()
+        actionViewModel.allActionsLiveData.observe(requireActivity(), Observer{ it ->
+            historyAdapter.replace(it)
+            historyAdapter.notifyDataSetChanged()
+        })
     }
 }

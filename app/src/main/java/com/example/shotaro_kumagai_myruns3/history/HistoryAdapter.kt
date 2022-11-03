@@ -1,6 +1,7 @@
 package com.example.shotaro_kumagai_myruns3.history
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ class HistoryAdapter (
     private var actionList: List<Action>
     ) : BaseAdapter(){
     private var layoutInflater: LayoutInflater? = null
+    private lateinit var intent: Intent
 
     override fun getItem(position: Int): Any {
         return actionList[position]
@@ -43,15 +45,25 @@ class HistoryAdapter (
         val actionData:TextView = target!!.findViewById(R.id.action_data)
         val timeData: TextView = target!!.findViewById(R.id.time_data)
 
-        val sdf = SimpleDateFormat("HH:mm:ss:SSS MM/dd/yyyy")
+        val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
         actionData.text = "${context.resources.getStringArray(R.array.inputs)[actionList[position].inputType]}" +
                 ":${context.resources.getStringArray(R.array.activities)[actionList[position].activityType]}" +
                 "${sdf.format(actionList[position].dateTime.time)}"
         timeData.text = "${actionList[position].distance}, 0sec"
+
+        target.setOnClickListener{
+            intent = Intent(context, EachActionActivity::class.java)
+            intent.putExtra(EACH_ACTION, actionList[position].id)
+            context.startActivity(intent)
+        }
         return target
     }
 
     fun replace(newActionList: List<Action>){
         actionList = newActionList
+    }
+
+    companion object{
+        const val EACH_ACTION = "each_action"
     }
 }

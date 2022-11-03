@@ -38,6 +38,11 @@
     <string name="start">Start</string>
     <string name="input_type">Input Type</string>
     <string name="activity_type">Activity Type</string>
+    <string name="date_and_time">Date and time</string>
+    <string name="duration">Duration</string>
+    <string name="distance">Distance</string>
+    <string name="calories">Calories</string>
+    <string name="heart_rate">Heart Rate</string>
     <string name="note">How did it go? Notes here.</string>
     <string-array name="inputs">
         <item>Manual Entry</item>

@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.13189448441247004" />
         <entry key="app/src/main/res/drawable/border.xml" value="0.115" />
+        <entry key="app/src/main/res/layout/activity_each_action.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.37395833333333334" />
         <entry key="app/src/main/res/layout/activity_manual.xml" value="0.31954345703125003" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.10914855072463768" />
@@ -18,9 +19,11 @@
         <entry key="app/src/main/res/layout/history_list.xml" value="0.18819655521783182" />
         <entry key="app/src/main/res/layout/input_dialog.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/k.xml" value="0.10914855072463768" />
+        <entry key="app/src/main/res/layout/menu.xml" value="0.1887031408308004" />
         <entry key="app/src/main/res/layout/note_dialog.xml" value="0.10914855072463768" />
         <entry key="app/src/main/res/layout/pick_profile_dialog.xml" value="0.5730552526472067" />
         <entry key="app/src/main/res/layout/radio_dialog.xml" value="0.1887031408308004" />
+        <entry key="app/src/main/res/menu/menu.xml" value="0.1111111111111111" />
         <entry key="app/src/main/res/xml/file_path.xml" value="0.3845108695652174" />
       </map>
     </option>

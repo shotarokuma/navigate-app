@@ -38,7 +38,9 @@ class EachActionActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.activity_type).setText(resources.getStringArray(R.array.activities)[target?.activityType?.toInt()!!])
             val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
             findViewById<EditText>(R.id.date_and_time).setText(sdf.format(target?.dateTime?.time))
-            findViewById<EditText>(R.id.duration).setText(target?.duration!!.toInt().toString() + "secs")
+            val min: Int = target?.duration!!.toInt()
+            val sec: Double = (target!!.duration - target!!.duration.toInt().toDouble()) * 60
+            findViewById<EditText>(R.id.duration).setText(min.toString() + "min" + sec.toInt().toString() + "sec")
 
             val unit: Unit = Unit.getInstance()
             val fixUnit: Double = if (unit.isMile) 1.0 else 1.60934

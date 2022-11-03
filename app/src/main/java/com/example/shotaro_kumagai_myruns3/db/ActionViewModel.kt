@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 
 class ActionViewModel(private val repository: ActionRepository):ViewModel() {
     val allActionsLiveData: LiveData<List<Action>> = repository.allActions.asLiveData()
+    var sum:Int = 0
 
     fun eachAction(index: Int): Action? {
         val actionList = allActionsLiveData.value
@@ -11,6 +12,7 @@ class ActionViewModel(private val repository: ActionRepository):ViewModel() {
     }
 
     fun insert(action: Action){
+        sum += 1
         repository.insert(action)
     }
 

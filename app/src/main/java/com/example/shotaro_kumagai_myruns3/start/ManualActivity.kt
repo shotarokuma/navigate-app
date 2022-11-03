@@ -102,7 +102,7 @@ class ManualActivity : AppCompatActivity() {
             comment = vm.comment.value!!
         )
         actionViewModel.insert(action)
-        Toast.makeText(this, "Entry Saved", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Entry${actionViewModel.sum} Saved", Toast.LENGTH_SHORT).show()
         finish()
     }
 

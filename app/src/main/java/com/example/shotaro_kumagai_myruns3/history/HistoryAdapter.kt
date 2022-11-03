@@ -54,7 +54,9 @@ class HistoryAdapter (
         actionData.text = "${context.resources.getStringArray(R.array.inputs)[actionList[position].inputType]}" +
                 ":${context.resources.getStringArray(R.array.activities)[actionList[position].activityType]}" +
                 "${sdf.format(actionList[position].dateTime.time)}"
-        timeData.text = "${actionList[position].distance * fixUnit} ${strUnit}, 0sec"
+        val min: Int = actionList[position].duration.toInt()
+        val sec: Double = (actionList[position].duration - actionList[position].duration.toInt().toDouble()) * 60
+        timeData.text = "${actionList[position].distance * fixUnit} ${strUnit}, ${min.toString()}min ${sec.toInt().toString()}sec"
 
         target.setOnClickListener{
             intent = Intent(context, EachActionActivity::class.java)

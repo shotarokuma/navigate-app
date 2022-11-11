@@ -1,6 +1,5 @@
-package com.example.shotaro_kumagai_myruns3.db
+package com.example.shotaro_kumagai_myruns4.db
 
-import androidx.annotation.WorkerThread
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow

@@ -1,10 +1,10 @@
-package com.example.shotaro_kumagai_myruns3.start
+package com.example.shotaro_kumagai_myruns4.start
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBar
-import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns4.R
 
 class MapActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

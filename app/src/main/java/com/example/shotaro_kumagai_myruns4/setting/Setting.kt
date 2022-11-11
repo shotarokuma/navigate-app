@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.setting
+package com.example.shotaro_kumagai_myruns4.setting
 
 import android.content.Intent
 import android.net.Uri
@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
-import com.example.shotaro_kumagai_myruns3.Dialog
-import com.example.shotaro_kumagai_myruns3.R
-import com.example.shotaro_kumagai_myruns3.profile.ProfileActivity
+import com.example.shotaro_kumagai_myruns4.Dialog
+import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.profile.ProfileActivity
 
 class Setting : Fragment() {
     private lateinit var  setting: View

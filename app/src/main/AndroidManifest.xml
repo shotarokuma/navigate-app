@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.shotaro_kumagai_myruns3">
+    package="com.example.shotaro_kumagai_myruns4">
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -19,19 +19,19 @@
         android:theme="@style/Theme.Shotaro_Kumagai_MyRuns3"
         tools:targetApi="31">
         <activity
-            android:name=".history.EachActionActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.history.EachActionActivity"
             android:exported="false" />
         <activity
-            android:name=".start.MapActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.start.MapActivity"
             android:exported="false" />
         <activity
-            android:name=".start.ManualActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.start.ManualActivity"
             android:exported="false" />
         <activity
-            android:name=".profile.ProfileActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.shotaro_kumagai_myruns3"
+            android:authorities="com.example.shotaro_kumagai_myruns4"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

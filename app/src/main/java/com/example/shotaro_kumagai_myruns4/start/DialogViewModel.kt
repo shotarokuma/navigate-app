@@ -1,10 +1,8 @@
-package com.example.shotaro_kumagai_myruns3.start
+package com.example.shotaro_kumagai_myruns4.start
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.maps.model.LatLng
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class DialogViewModel:ViewModel() {

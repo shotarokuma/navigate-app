@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.history
+package com.example.shotaro_kumagai_myruns4.history
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,9 +7,9 @@ import android.view.MenuItem
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.shotaro_kumagai_myruns3.R
-import com.example.shotaro_kumagai_myruns3.Unit
-import com.example.shotaro_kumagai_myruns3.db.*
+import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.Unit
+import com.example.shotaro_kumagai_myruns4.db.*
 import java.text.SimpleDateFormat
 
 class EachActionActivity : AppCompatActivity() {

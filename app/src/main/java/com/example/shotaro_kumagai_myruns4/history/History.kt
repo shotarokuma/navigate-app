@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.history
+package com.example.shotaro_kumagai_myruns4.history
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.shotaro_kumagai_myruns3.R
-import com.example.shotaro_kumagai_myruns3.db.*
+import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.db.*
 
 class History : Fragment() {
     private lateinit var history: View

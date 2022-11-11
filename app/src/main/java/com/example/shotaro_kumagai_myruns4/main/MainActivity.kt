@@ -1,13 +1,13 @@
-package com.example.shotaro_kumagai_myruns3.main
+package com.example.shotaro_kumagai_myruns4.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.example.shotaro_kumagai_myruns3.history.History
-import com.example.shotaro_kumagai_myruns3.R
-import com.example.shotaro_kumagai_myruns3.setting.Setting
-import com.example.shotaro_kumagai_myruns3.start.Start
+import com.example.shotaro_kumagai_myruns4.history.History
+import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.setting.Setting
+import com.example.shotaro_kumagai_myruns4.start.Start
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy

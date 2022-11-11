@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.start
+package com.example.shotaro_kumagai_myruns4.start
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
-import com.example.shotaro_kumagai_myruns3.R
+import com.example.shotaro_kumagai_myruns4.R
 
 
 class Start : Fragment() {

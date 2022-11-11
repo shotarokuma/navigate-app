@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.profile
+package com.example.shotaro_kumagai_myruns4.profile
 
 import android.app.Dialog
 import android.app.Activity
@@ -21,8 +21,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.shotaro_kumagai_myruns3.R
-import com.example.shotaro_kumagai_myruns3.Util
+import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.Util
 import java.io.ByteArrayOutputStream
 import java.io.File
 

@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.db
+package com.example.shotaro_kumagai_myruns4.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

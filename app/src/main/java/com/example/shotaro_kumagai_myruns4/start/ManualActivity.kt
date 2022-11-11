@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns3.start
+package com.example.shotaro_kumagai_myruns4.start
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -9,9 +9,9 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.example.shotaro_kumagai_myruns3.Dialog
-import com.example.shotaro_kumagai_myruns3.R
-import com.example.shotaro_kumagai_myruns3.db.*
+import com.example.shotaro_kumagai_myruns4.Dialog
+import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.db.*
 import java.util.*
 
 

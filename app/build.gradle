@@ -2,14 +2,11 @@
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-}
+     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+ }
 
 android {
     compileSdk 32
-
-    dataBinding {
-        enabled = true
-    }
 
     defaultConfig {
         applicationId "com.example.shotaro_kumagai_myruns3"
@@ -24,6 +21,11 @@ android {
         buildConfigField("String", "MAPS_API_KEYS", "\"${MAPS_API_KEYS}\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
     }
 
     buildTypes {

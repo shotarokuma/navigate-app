@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
 import com.example.shotaro_kumagai_myruns4.R
+import com.example.shotaro_kumagai_myruns4.start.manual.ManualActivity
+import com.example.shotaro_kumagai_myruns4.start.map.MapActivity
 
 
 class Start : Fragment() {
@@ -53,7 +55,7 @@ class Start : Fragment() {
             intent = if (inputSpinner.selectedItem.toString() == "Manual Entry"){
                 Intent(context, ManualActivity::class.java)
             }else{
-                Intent(context, ManualActivity::class.java)
+                Intent(context, MapActivity::class.java)
             }
             intent.putExtra(SELECTED_ACTIVITIES, activities.indexOf(activitiesSpinner.selectedItem.toString()))
             startActivity(intent)

@@ -5,6 +5,9 @@
 
     <uses-feature android:name="android.hardware.camera" />
 
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:maxSdkVersion="22" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -21,11 +24,15 @@
         <activity
             android:name="com.example.shotaro_kumagai_myruns4.history.EachActionActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="MAPS_API_KEYS"/>
         <activity
-            android:name="com.example.shotaro_kumagai_myruns4.start.MapActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.start.map.MapActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.shotaro_kumagai_myruns4.start.ManualActivity"
+            android:name="com.example.shotaro_kumagai_myruns4.start.manual.ManualActivity"
             android:exported="false" />
         <activity
             android:name="com.example.shotaro_kumagai_myruns4.profile.ProfileActivity"

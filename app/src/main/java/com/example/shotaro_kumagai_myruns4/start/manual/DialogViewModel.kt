@@ -1,4 +1,4 @@
-package com.example.shotaro_kumagai_myruns4.start
+package com.example.shotaro_kumagai_myruns4.start.manual
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

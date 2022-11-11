@@ -1,4 +1,4 @@
-plugins {
+ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
@@ -7,12 +7,21 @@ plugins {
 android {
     compileSdk 32
 
+    dataBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.example.shotaro_kumagai_myruns3"
         minSdk 21
         targetSdk 32
         versionCode 1
         versionName "1.0"
+
+        def properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def MAPS_API_KEYS = properties.getProperty("maps_api_keys")
+        buildConfigField("String", "MAPS_API_KEYS", "\"${MAPS_API_KEYS}\"")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

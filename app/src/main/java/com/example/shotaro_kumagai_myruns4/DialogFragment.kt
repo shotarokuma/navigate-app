@@ -12,7 +12,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.shotaro_kumagai_myruns4.start.DialogViewModel
+import com.example.shotaro_kumagai_myruns4.start.manual.DialogViewModel
 
 class Dialog : DialogFragment(), DialogInterface.OnClickListener{
     companion object{

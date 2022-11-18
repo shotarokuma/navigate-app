@@ -70,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
 
         tempImgFileName= "xd_img.jpg"
         val tempImgFile = File(getExternalFilesDir(null), tempImgFileName)
-        tempImgUri = FileProvider.getUriForFile(this, "com.example.shotaro_kumagai_myruns3", tempImgFile)
+        tempImgUri = FileProvider.getUriForFile(this, "com.example.shotaro_kumagai_myruns4", tempImgFile)
         cameraResult = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->

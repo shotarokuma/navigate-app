@@ -13,7 +13,9 @@ import com.example.shotaro_kumagai_myruns4.Dialog
 import com.example.shotaro_kumagai_myruns4.R
 import com.example.shotaro_kumagai_myruns4.db.*
 import com.example.shotaro_kumagai_myruns4.start.Start
-import java.util.*
+import com.google.android.gms.maps.model.LatLng
+import java.util.ArrayList
+import java.util.Calendar
 
 
 class ManualActivity : AppCompatActivity() {
@@ -27,6 +29,7 @@ class ManualActivity : AppCompatActivity() {
     private lateinit var repository: ActionRepository
     private lateinit var actionViewModel: ActionViewModel
     private lateinit var action: Action
+    private lateinit var locationList: ArrayList<LatLng>
     private val calender : Calendar = Calendar.getInstance()
     private val year: Int = calender.get(Calendar.YEAR)
     private  val month: Int = calender.get(Calendar.MONTH)
@@ -66,6 +69,9 @@ class ManualActivity : AppCompatActivity() {
                 6 -> crateDialog(Dialog.NOTE, "note", noteBundle)
             }
         }
+        actionViewModel.allActionsLiveData.observe(this) {
+            locationList = actionViewModel.latestLocationList()
+        }
     }
 
     private fun crateDateDialog(){
@@ -100,7 +106,8 @@ class ManualActivity : AppCompatActivity() {
             distance = vm.distance.value!!,
             calorie = vm.calorie.value!!,
             heartRate = vm.heartRate.value!!,
-            comment = vm.comment.value!!
+            comment = vm.comment.value!!,
+            locationList = locationList
         )
         actionViewModel.insert(action)
         Toast.makeText(this, "Entry${ActionViewModel.sum} Saved", Toast.LENGTH_SHORT).show()

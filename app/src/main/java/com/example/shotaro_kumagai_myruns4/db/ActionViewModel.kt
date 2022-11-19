@@ -1,6 +1,7 @@
 package com.example.shotaro_kumagai_myruns4.db
 
 import androidx.lifecycle.*
+import com.google.android.gms.maps.model.LatLng
 
 class ActionViewModel(private val repository: ActionRepository):ViewModel() {
     val allActionsLiveData: LiveData<List<Action>> = repository.allActions.asLiveData()
@@ -8,6 +9,20 @@ class ActionViewModel(private val repository: ActionRepository):ViewModel() {
     fun eachAction(index: Int): Action? {
         val actionList = allActionsLiveData.value
         return actionList?.get(index)
+    }
+
+    fun latestLocationList():ArrayList<LatLng>{
+        var latest: Int = 0
+        val data: List<Action>? = allActionsLiveData.value
+        if(data == null || data.isEmpty()){
+            return ArrayList()
+        }
+        for(i in data.indices){
+                if(data[latest].dateTime < data[i].dateTime){
+                    latest = i
+                }
+            }
+       return allActionsLiveData.value!![latest].locationList
     }
 
     fun insert(action: Action){

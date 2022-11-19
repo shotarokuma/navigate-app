@@ -26,11 +26,19 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />
         <activity
+            android:name=".history.EachMapActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
+        <activity
             android:name="com.example.shotaro_kumagai_myruns4.start.map.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name="com.example.shotaro_kumagai_myruns4.history.EachActionActivity"
+            android:name=".history.EachActionActivity"
             android:exported="false" />
         <activity
             android:name="com.example.shotaro_kumagai_myruns4.start.manual.ManualActivity"

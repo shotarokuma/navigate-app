@@ -44,7 +44,7 @@ class HistoryAdapter (
             target = layoutInflater!!.inflate(R.layout.history_list, null)
         }
         val actionData:TextView = target!!.findViewById(R.id.action_data)
-        val timeData: TextView = target!!.findViewById(R.id.time_data)
+        val timeData: TextView = target.findViewById(R.id.time_data)
 
         val sdf = SimpleDateFormat("HH:mm:ss MMM dd yyyy")
         val unit: Unit = Unit.getInstance()
@@ -59,7 +59,11 @@ class HistoryAdapter (
         timeData.text = "${actionList[position].distance * fixUnit} ${strUnit}, ${min.toString()}min ${sec.toInt().toString()}sec"
 
         target.setOnClickListener{
-            intent = Intent(context, EachActionActivity::class.java)
+            intent = if(actionList[position].inputType ==  0){
+                Intent(context, EachActionActivity::class.java)
+            }else{
+                Intent(context, EachMapActivity::class.java)
+            }
             intent.putExtra(EACH_ACTION, position)
             context.startActivity(intent)
         }

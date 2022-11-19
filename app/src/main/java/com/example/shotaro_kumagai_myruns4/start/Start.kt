@@ -52,15 +52,20 @@ class Start : Fragment() {
         }
 
         start.findViewById<Button>(R.id.start_button)?.setOnClickListener{
-            intent = if (inputSpinner.selectedItem.toString() == "Manual Entry"){
-                Intent(context, ManualActivity::class.java)
-            }else{
-                Intent(context, MapsActivity::class.java)
+            when(inputSpinner.selectedItem.toString()){
+                "Manual Entry" -> intent = Intent(context, ManualActivity::class.java)
+                "GPS" -> {
+                    intent = Intent(context, MapsActivity::class.java)
+                    intent.putExtra(SELECTED_INPUT,1)
+                }
+                "Automatic" -> {
+                    intent = Intent(context, MapsActivity::class.java)
+                    intent.putExtra(SELECTED_INPUT, 2)
+                }
             }
             intent.putExtra(SELECTED_ACTIVITIES, activities.indexOf(activitiesSpinner.selectedItem.toString()))
             startActivity(intent)
         }
-
         return start
     }
 
@@ -74,5 +79,6 @@ class Start : Fragment() {
         const val INPUT_TYPE = "input_type"
         const val ACTIVITIES_TYPE = "activities_type"
         const val SELECTED_ACTIVITIES = "selected_activities"
+        const val SELECTED_INPUT = "selected_input"
     }
 }

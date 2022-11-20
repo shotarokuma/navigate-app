@@ -10,8 +10,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.ActionBar
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.shotaro_kumagai_myruns4.R
@@ -25,6 +27,7 @@ import com.example.shotaro_kumagai_myruns4.databinding.ActivityMapsBinding
 import com.example.shotaro_kumagai_myruns4.start.Start
 import com.google.android.gms.maps.model.PolylineOptions
 import com.example.shotaro_kumagai_myruns4.db.*
+import com.example.shotaro_kumagai_myruns4.Unit
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,6 +44,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
     private lateinit var repository: ActionRepository
     private lateinit var actionViewModel: ActionViewModel
     private lateinit var action: Action
+    private lateinit var typeTextView: TextView
+    private lateinit var avgSpeedTextView: TextView
+    private lateinit var currSpeedTextView: TextView
+    private lateinit var climbTextView: TextView
+    private lateinit var caloriesTextView: TextView
+    private lateinit var distanceTextView: TextView
+    private lateinit var startLatLng: LatLng
+    private lateinit var startTime: Calendar
+    private lateinit var prevTime: Calendar
+    private lateinit var currTime: Calendar
     private var activityType = -1
     private var centered = false
 
@@ -50,6 +63,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val actionBar: ActionBar? = supportActionBar
+        if (actionBar !== null) {
+            actionBar.title = "Map";
+        }
+
+        typeTextView = findViewById(R.id.maps_type)
+        currSpeedTextView = findViewById(R.id.maps_curr_speed)
+        avgSpeedTextView = findViewById(R.id.maps_avg_speed)
+        climbTextView = findViewById(R.id.maps_climb)
+        caloriesTextView = findViewById(R.id.maps_calorie)
+        distanceTextView = findViewById(R.id.maps_distance)
 
         database = ActionDatabase.getInstance(this)
         databaseDao = database.actionDao
@@ -76,6 +101,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
     }
 
 
+    //save data in db
     fun onSave (view: View){
         action = Action(
             inputType = intent.getIntExtra(Start.SELECTED_INPUT, -1),
@@ -103,6 +129,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         }
     }
 
+    //check permission
     @RequiresApi(Build.VERSION_CODES.M)
     private fun checkPermission() {
         if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -116,6 +143,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         }
     }
 
+    //initialize data
     private fun initLocation(){
         try {
             locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
@@ -133,11 +161,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         }
     }
 
+    //updating where uer is
     override fun onLocationChanged(location: Location) {
         val lat: Double =  location.latitude
         val lng: Double = location.longitude
         val latlng: LatLng = LatLng(lat, lng)
         if(!centered){
+            startLatLng = latlng
+            startTime = Calendar.getInstance()
+            currTime = Calendar.getInstance()
+            prevTime = Calendar.getInstance()
             val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 16f)
             mMap.animateCamera(cameraUpdate)
             mMap.addMarker(markerOptions.position(latlng))
@@ -145,11 +178,38 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
             locationList.forEach {
                 polylineOptions.add(it)
             }
+            setText()
             centered = true
         }
+        prevTime = currTime
+        currTime = Calendar.getInstance()
         mMap.addMarker(markerOptions.position(latlng))
         locationList.add(latlng)
         polylineOptions.add(latlng)
         mMap.addPolyline(polylineOptions.color(Color.BLACK).width(5f))
+        setText()
+    }
+
+    //display data
+    private fun setText(){
+        typeTextView.text = "Type: " +
+                "${resources.getStringArray(R.array.activities)[intent.getIntExtra(Start.SELECTED_ACTIVITIES, 0)]}"
+        val curr: LatLng = locationList.last()
+        val prev: LatLng = if(locationList.size >= 2) locationList[locationList.size - 2] else locationList.last()
+        val unit:Unit = Unit.getInstance()
+        val res: FloatArray = floatArrayOf(0F,0F,0F)
+        val res2: FloatArray = floatArrayOf(0F,0F,0F)
+        Location.distanceBetween(startLatLng.latitude, startLatLng.longitude, curr.latitude, curr.longitude, res)
+        Location.distanceBetween(prev.latitude, prev.longitude, curr.latitude, curr.longitude, res2)
+        val fixUnit: Double = if (unit.isMile) 1.0 else 1.60934
+        val strUnit: String = if (unit.isMile) "Miles" else "Kilometer"
+        val strUnit2: String = if (unit.isMile) "mi/h" else "km/h"
+        val dur: Long = currTime.time.time - startTime.time.time
+        val dur2: Long = currTime.time.time - prevTime.time.time
+        distanceTextView.text = "Distance: " + "${res[0] * fixUnit}" + strUnit
+        currSpeedTextView.text = "Curr speed: ${res2[0] * fixUnit /  dur2 * 3600000}" + strUnit2
+        avgSpeedTextView.text = "Avg speed: ${res[0] * fixUnit /  dur * 3600000}" + strUnit2
+        climbTextView.text = "Climb: " + "${res[0] * fixUnit}" + strUnit
+        caloriesTextView.text = "Calorie" + "${60 * 1.05 * dur /3600000}"
     }
 }

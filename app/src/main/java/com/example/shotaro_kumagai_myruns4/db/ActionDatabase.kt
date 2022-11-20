@@ -47,13 +47,13 @@ class LangConverter{
         val stringList: List<String> = locationList.map {
             "(${it.latitude},${it.longitude}"
         }
-        return stringList.joinToString("-")
+        return stringList.joinToString(":")
     }
 
     @TypeConverter
     fun stringToLatLng(string: String) : ArrayList<LatLng>{
         val locationList: ArrayList<LatLng> = arrayListOf()
-        val stringList:List<String> = string.split('-')
+        val stringList:List<String> = string.split(':')
         stringList.forEach(){
             val s: String = it.replace("(", "").replace(")", "")
             val list: List<String> = s.split(",")

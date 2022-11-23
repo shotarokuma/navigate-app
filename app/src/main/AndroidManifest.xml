@@ -74,6 +74,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
+
+        <service android:name="com.example.shotaro_kumagai_myruns5.sensor.SensorService"/>
     </application>
 
 </manifest>

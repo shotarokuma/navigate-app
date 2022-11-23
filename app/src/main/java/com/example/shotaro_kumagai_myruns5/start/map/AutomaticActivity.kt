@@ -1,5 +1,6 @@
 package com.example.shotaro_kumagai_myruns5.start.map
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Criteria
@@ -28,10 +29,16 @@ import com.example.shotaro_kumagai_myruns5.start.Start
 import com.google.android.gms.maps.model.PolylineOptions
 import com.example.shotaro_kumagai_myruns5.db.*
 import com.example.shotaro_kumagai_myruns5.Unit
+import com.example.shotaro_kumagai_myruns5.sensor.Globals
+import com.example.shotaro_kumagai_myruns5.sensor.SensorService
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
+class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener{
+    private val labels =  arrayOf<String>(Globals.CLASS_LABEL_STANDING,
+        Globals.CLASS_LABEL_WALKING, Globals.CLASS_LABEL_RUNNING,
+        Globals.CLASS_LABEL_OTHER)
     private lateinit var mMap: GoogleMap
     private lateinit var locationManager: LocationManager
     private lateinit var binding: ActivityAutomaticBinding
@@ -54,6 +61,9 @@ class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListe
     private lateinit var startTime: Calendar
     private lateinit var prevTime: Calendar
     private lateinit var currTime: Calendar
+
+    private  lateinit var service: Intent
+    private lateinit var featureFile: File
     private var activityType = -1
     private var centered = false
 
@@ -83,6 +93,8 @@ class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListe
         actionViewModel = ViewModelProvider(this, viewModelFactory)[ActionViewModel::class.java]
         activityType = intent.getIntExtra(Start.SELECTED_ACTIVITIES,0)
         locationList = actionViewModel.latestLocationList()
+        service = Intent(this, SensorService::class.java)
+        featureFile = File(getExternalFilesDir(null), Globals.FEATURE_FILE_NAME)
         actionViewModel.allActionsLiveData.observe(this) {
             locationList = actionViewModel.latestLocationList()
             val mapFragment = supportFragmentManager
@@ -127,6 +139,7 @@ class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListe
         if (locationManager != null){
             locationManager.removeUpdates(this)
         }
+        stopService(service)
     }
 
     //check permission
@@ -179,6 +192,7 @@ class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListe
                 polylineOptions.add(it)
             }
             setText()
+            startService(service)
             centered = true
         }
         prevTime = currTime

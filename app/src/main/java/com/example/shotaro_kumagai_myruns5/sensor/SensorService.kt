@@ -2,6 +2,7 @@ package com.example.shotaro_kumagai_myruns5.sensor
 
 import android.app.Service
 import android.content.Intent
+import android.content.IntentFilter
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -9,8 +10,6 @@ import android.hardware.SensorManager
 import android.os.AsyncTask
 import android.os.IBinder
 import android.util.Log
-import android.widget.Toast
-import com.example.shotaro_kumagai_myruns5.R
 import com.example.shotaro_kumagai_myruns5.start.map.AutomaticActivity
 import weka.core.Attribute
 import weka.core.DenseInstance
@@ -48,8 +47,13 @@ class SensorService: Service(), SensorEventListener {
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION)
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_FASTEST)
         mFeatureFile = File(getExternalFilesDir(null), Globals.FEATURE_FILE_NAME)
-        Log.d(Globals.TAG, mFeatureFile.absolutePath)
         mServiceTaskType = Globals.SERVICE_TASK_TYPE_COLLECT
+
+        //register receiver
+        this.applicationContext.registerReceiver(
+            Receiver(),
+            IntentFilter("com.example.shotaro_kumagai_myruns5.sensor.ACTIVITY")
+        )
 
         // Create the container for attributes
         val allAttr = ArrayList<Attribute>()
@@ -79,9 +83,7 @@ class SensorService: Service(), SensorEventListener {
         // index for classification
         mDataset.setClassIndex(mDataset.numAttributes() - 1)
         val i = Intent(this, AutomaticActivity::class.java)
-        // Read:
-        // http://developer.android.com/guide/topics/manifest/activity-element.html#lmode
-        // IMPORTANT!. no re-create activity
+
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         mAsyncTask = OnSensorChangedTask()
         mAsyncTask.execute()
@@ -96,7 +98,6 @@ class SensorService: Service(), SensorEventListener {
             e.printStackTrace()
         }
         mSensorManager.unregisterListener(this)
-        Log.i("", "")
         super.onDestroy()
     }
 
@@ -130,8 +131,8 @@ class SensorService: Service(), SensorEventListener {
                         inst.setValue(Globals.ACCELEROMETER_BLOCK_CAPACITY, max)
                         val key = WekaClassifier.classify(inst.toDoubleArray().toTypedArray())
                         inst.setValue(mClassAttribute, key)
+                        updateExcerciseEntry(inst,mClassAttribute)
                         mDataset.add(inst)
-                        println(mDataset)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -174,20 +175,14 @@ class SensorService: Service(), SensorEventListener {
                     mDataset = oldDataset
                     // Delete the existing old file.
                     mFeatureFile.delete()
-                    Log.i("delete", "delete the file")
                 } catch (e: java.lang.Exception) {
                     e.printStackTrace()
                 }
-                toastDisp = getString(R.string.ui_sensor_service_toast_success_file_updated)
-            } else {
-                toastDisp = getString(R.string.ui_sensor_service_toast_success_file_created)
             }
-            Log.i("save", "create saver here")
             // create new Arff file
             val saver = ArffSaver()
             // Set the data source of the file content
             saver.instances = mDataset
-            Log.e("1234", mDataset.size.toString() + "")
             try {
                 // Set the destination of the file.
                 // mFeatureFile = new File(getExternalFilesDir(null),
@@ -195,22 +190,17 @@ class SensorService: Service(), SensorEventListener {
                 saver.setFile(mFeatureFile)
                 // Write into the file
                 saver.writeBatch()
-                Log.i("batch", "write batch here")
-                Toast.makeText(applicationContext, toastDisp,
-                    Toast.LENGTH_SHORT).show()
             } catch (e: IOException) {
-                toastDisp = getString(R.string.ui_sensor_service_toast_error_file_saving_failed)
                 e.printStackTrace()
             }
-            Log.i("toast", "toast here")
             super.onCancelled()
         }
     }
 
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_LINEAR_ACCELERATION) {
-            val m = Math.sqrt((event.values[0] * event.values[0] + event.values[1] * event.values[1] + (event.values[2]
-                    * event.values[2])).toDouble())
+            val m = sqrt((event.values[0] * event.values[0] + event.values[1] * event.values[1] + (event.values[2]
+                      * event.values[2])).toDouble())
 
             // Inserts the specified element into this queue if it is possible
             // to do so immediately without violating capacity restrictions,
@@ -231,6 +221,13 @@ class SensorService: Service(), SensorEventListener {
                 mAccBuffer.add(m)
             }
         }
+    }
+
+    fun updateExcerciseEntry(inst:Instance, attribute: Attribute){
+        val i = Intent("com.example.shotaro_kumagai_myruns5.sensor.ACTIVITY")
+        val data: String = inst.toString(attribute)
+        i.putExtra(Receiver.ACTIVITY_DATA, data)
+        sendBroadcast(i)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}

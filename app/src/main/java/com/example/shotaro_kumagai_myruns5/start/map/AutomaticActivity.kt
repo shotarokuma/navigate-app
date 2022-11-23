@@ -1,5 +1,7 @@
 package com.example.shotaro_kumagai_myruns5.start.map
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -30,6 +32,7 @@ import com.google.android.gms.maps.model.PolylineOptions
 import com.example.shotaro_kumagai_myruns5.db.*
 import com.example.shotaro_kumagai_myruns5.Unit
 import com.example.shotaro_kumagai_myruns5.sensor.Globals
+import com.example.shotaro_kumagai_myruns5.sensor.Receiver
 import com.example.shotaro_kumagai_myruns5.sensor.SensorService
 import java.io.File
 import java.util.*
@@ -207,7 +210,7 @@ class AutomaticActivity : AppCompatActivity(), OnMapReadyCallback, LocationListe
     //display data
     private fun setText(){
         typeTextView.text = "Type: " +
-                "${resources.getStringArray(R.array.activities)[intent.getIntExtra(Start.SELECTED_ACTIVITIES, 0)]}"
+                "${Receiver.currString}"
         val curr: LatLng = locationList.last()
         val prev: LatLng = if(locationList.size >= 2) locationList[locationList.size - 2] else locationList.last()
         val unit:Unit = Unit.getInstance()

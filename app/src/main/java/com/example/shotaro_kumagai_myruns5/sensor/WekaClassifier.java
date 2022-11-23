@@ -11,11 +11,13 @@ class WekaClassifier {
     private static double _classify(Object []i) {
         double p = Double.NaN;
         if (i[64] == null) {
-            p = 2;
+            p = 0;
         } else if (((Double) i[64]).doubleValue() <= 4.573082) {
-            p = 2;
-        } else if (((Double) i[64]).doubleValue() > 4.573082) {
+            p = 0;
+        } else if (((Double) i[64]).doubleValue() > 4.573082 && ((Double) i[64]).doubleValue() < 9.146164  ) {
             p = 1;
+        }else if( ((Double) i[64]).doubleValue() > 9.146164){
+            p = 2;
         }
         return p;
     }
